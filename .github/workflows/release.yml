@@ -1,0 +1,37 @@
+name: Release Charts
+
+on:
+  workflow_dispatch:
+    inputs:
+      chart_name:
+        description: 'Set chart name to release'     
+        required: true
+        type: string
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      - name: Run chart-releaser
+        env:
+          CR_OWNER: "${{ github.repository_owner }}"
+          CR_GIT_REPO: "${{ github.repository }}"
+          CR_PACKAGE_PATH: "./charts/${{ github.event.inputs.chart_name }}"
+          CR_SKIP_EXISTING: true
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        uses: helm/chart-releaser-action@v1.5.0
