@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ""
-  namespace: ""
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
   labels:
-    foo: bar
+  {{- template "mychart.labels" | indent 4  }}
   annotations:
     foo: bar
 spec:
@@ -19,11 +19,5 @@ spec:
       maxUnavailable: 0/""
   revisionHistoryLimit: 0
   template:
-    metadata:
-      labels:
-        foo: bar
-      annotations:
-        foo: bar
-    spec:
-      <pod template>
+    <pod template>
 

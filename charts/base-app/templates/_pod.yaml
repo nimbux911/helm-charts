@@ -1,0 +1,51 @@
+{{- define "base-app.pod" }}
+metadata:
+  labels:
+    foo: bar
+  annotations:
+    foo: bar
+spec:
+  containers:
+    - <container template>
+  initContainers:
+    - <init container template>
+  nodeSelector:
+    foo: bar
+  tolerations:
+    - key: ""
+      operator: ""
+      value: ""
+      effect: ""
+  restartPolicy: ""
+  hostAliases:
+    - hostnames:
+        - ""
+      ip: ""
+  serviceAccountName: ""
+  automountServiceAccountToken: bool
+  imagePullSecrets:
+    - name: ""
+  volumes:
+    - name: ""
+      persistentVolumeClaim:
+        claimName: ""
+        readOnly: bool
+    - name: ""
+      configMap:
+        name: ""
+        optional: bool
+        defaultMode: 0777
+        items:
+          - key: ""
+            path: ""
+            mode: 0777
+    - name: ""
+      secret:
+        secretName: ""
+        optional: bool
+        defaultMode: 0777
+        items:
+          - key: ""
+            path: ""
+            mode: 0777
+{{- end }}
