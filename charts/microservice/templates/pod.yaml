@@ -1,0 +1,19 @@
+      containers:
+        - <container template>
+      initContainers:
+        - <init container template>
+      nodeSelector:
+        foo: bar
+      tolerations:
+        - key: ""
+          operator: ""
+          value: ""
+          effect: ""
+      restartPolicy: ""
+      hostAliases:
+        - hostnames:
+            - ""
+          ip: ""
+      serviceAccountName: ""
+      automountServiceAccountToken: bool
+

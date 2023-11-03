@@ -1,0 +1,135 @@
+          name: ""
+          image: ""
+          imagePullPolicy: ""
+          command: [""]
+          args: [""]
+          workingDir: ""
+          ports:
+            - containerPort: 0
+              name: ""
+              protocol: ""
+          env:
+            - name: ""
+              value: ""
+            - name: ""
+              valueFrom:
+                configMapKeyRef:
+                  foo: bar
+                  name: "configMapName"
+                  optional: bool
+            - name: ""
+              valueFrom:
+                fieldRef: metadata.labels['foo']
+            - name: ""
+              valueFrom:
+                secretKeyRef:
+                  foo: bar
+                  name: "secretName"
+                  optional: bool
+          envFrom:
+            - configMapRef:
+                name: ""
+                optional: bool
+            - secretRef:
+                name: ""
+                optional: bool
+          volumeMounts:
+            - mountPath: ""
+              name: ""
+              readOnly: bool
+              subPath: ""
+            - mountPath: ""
+              name: ""
+              readOnly: bool
+              subPathExpr: ""              
+          volumeDevices:
+            - devicePath: ""
+              name: ""
+          resources:
+            requests:
+              cpu: ""
+              memory: ""
+            limits:
+              cpu: ""
+              memory: ""
+          livenessProbe:
+            httpGet:
+              port: 0
+              httpHeaders:
+                - name: ""
+                  value: ""
+              path: ""
+              scheme: ""
+              initialDelaySeconds: 0
+              terminationGracePeriodSeconds: 0
+              periodSeconds: 0
+              timeoutSeconds: 0
+              failureThreshold: 0
+              successThreshold: 0
+              grpc:
+                port: 0
+                service: ""
+          readinessProbe:
+            httpGet:
+              port: 0
+              httpHeaders:
+                - name: ""
+                  value: ""
+              path: ""
+              scheme: ""
+              initialDelaySeconds: 0
+              terminationGracePeriodSeconds: 0
+              periodSeconds: 0
+              timeoutSeconds: 0
+              failureThreshold: 0
+              successThreshold: 0
+              grpc:
+                port: 0
+                service: ""          
+          startupProbe:
+            httpGet:
+              port: 0
+              httpHeaders:
+                - name: ""
+                  value: ""
+              path: ""
+              scheme: ""
+              initialDelaySeconds: 0
+              terminationGracePeriodSeconds: 0
+              periodSeconds: 0
+              timeoutSeconds: 0
+              failureThreshold: 0
+              successThreshold: 0
+              grpc:
+                port: 0
+                service: ""
+          restartPolicy: ""
+          securityContext:
+            runAsUser: 0
+            runAsNonRoot: bool
+            privileged: bool
+      imagePullSecrets:
+        - name: ""
+      volumes:
+        - name: ""
+          persistentVolumeClaim:
+            claimName: ""
+            readOnly: bool
+        - name: ""
+          configMap:
+            name: ""
+            optional: bool
+            defaultMode: 0777
+            items:
+              - key: ""
+                path: ""
+                mode: 0777
+        - name: ""
+          secret:
+            secretName: ""
+            optional: bool
+            defaultMode: 0777
+            items:
+              - key: ""
+                path: ""
+                mode: 0777

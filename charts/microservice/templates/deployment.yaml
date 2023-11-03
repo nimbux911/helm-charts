@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ""
+  namespace: ""
+  labels:
+    foo: bar
+  annotations:
+    foo: bar
+spec:
+  selector:
+    matchLabels:
+      foo: bar
+  replicas: 0
+  strategy:
+    type: Recreate/RollingUpdate
+    rollingUpdate:
+      maxSurge: 0/""
+      maxUnavailable: 0/""
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        foo: bar
+      annotations:
+        foo: bar
+    spec:
+      <pod template>
+
