@@ -14,12 +14,14 @@
   {{- if $container.workingDir }}
   workingDir: {{ $container.workingDir }}
   {{- end }}
+  {{- if $container.ports }}
   ports:
     {{- range $port := $container.ports }}
     - containerPort: {{ $port.containerPort }}
       name: {{ $port.name }}
       protocol: {{ $port.protocol }}
     {{- end }}
+  {{- end }}
   {{- if $container.env }}
   env:
 {{ toYaml $container.env | indent 4 }}
