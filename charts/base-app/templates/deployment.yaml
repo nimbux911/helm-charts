@@ -5,8 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "base-app.common-labels" . | indent 4 }}
+  {{- if .Values.deployment.labels }}
   {{- range $key, $val := .Values.deployment.labels }}
     {{ $key }}: {{ $val | quote }}
+  {{- end }}
   {{- end }}
   {{- if .Values.deployment.annotations }}
   annotations:
@@ -19,11 +21,15 @@ spec:
     matchLabels:
       app: {{ .Release.Name }}
   replicas: {{ .Values.deployment.replicas | default 1 }}
+  {{- if .Values.deployment.strategy }}
   strategy:
     type: {{ .Values.deployment.strategy.type | default "RollingUpdate" | quote }}
+    {{- if .Values.deployment.strategy.rollingUpdate }}
     rollingUpdate:
       maxSurge: {{ .Values.deployment.strategy.rollingUpdate.maxSurge | default "25%" | quote }}
       maxUnavailable: {{ .Values.deployment.strategy.rollingUpdate.maxUnavailable | default "25%" | quote }}
+  {{- end }}
+  {{- end }}
   revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit | default 10 }}
   template:
     {{- include "base-app.pod" . | indent 4 }}

@@ -2,8 +2,11 @@
 metadata:
   labels:
     {{- include "base-app.common-labels" . | indent 4 }}
+  {{- if .Values.pod }}
+  {{- if .Values.pod.labels }}
   {{- range $key, $val := .Values.pod.labels }}
     {{ $key }}: {{ $val | quote }}
+  {{- end }}
   {{- end }}
   {{- if .Values.pod.annotations }}
   annotations:
@@ -11,9 +14,11 @@ metadata:
     {{ $key }}: {{ $val | quote }}
   {{- end }}
   {{- end }}
+  {{- end }}
 spec:
   containers:
     {{- include "base-app.pod.containers" . | indent 4 }}
+  {{- if .Values.pod }}
   {{- if .Values.pod.nodeSelector }}
   nodeSelector:
 {{ toYaml .Values.pod.nodeSelector | indent 4 }}
@@ -38,4 +43,5 @@ spec:
   volumes:
 {{ toYaml .Values.pod.volumes | indent 4 }}
   {{- end }}
+{{- end }}
 {{- end }}
