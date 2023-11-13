@@ -1,0 +1,118 @@
+
+deployment:
+  labels:
+    foo: bar
+    foo2: bar2
+  annotations:
+    annFoo: annBar
+    annFoo2: annBar2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 26%
+      maxUnavailable: 26%
+  revisionHistoryLimit: 11
+
+pod:
+  labels:
+    podFoo: podFoo
+    podFoo2: podFoo2
+  annotations:
+    podAnnFoo: podAnnFoo
+    podAnnFoo2: podAnnFoo2
+  
+#  nodeSelector:
+#    selectorFoo: selectorBar
+#  tolerations:
+#    - key: ""
+#      operator: ""
+#      value: ""
+#      effect: ""
+
+#  restartPolicy: Always
+#  hostAliases:
+#    - hostnames:
+#      - ""
+#    ip: ""
+
+#  serviceAccount: ""
+
+#  imagePullSecrets:
+#    - name: ""
+  
+#  volumes:
+#    - name: ""
+#      persistentVolumeClaim:
+#        claimName: ""
+#        readOnly: bool
+#    - name: ""
+#      configMap:
+#        name: ""
+#        optional: bool
+#        defaultMode: 0777
+#        items:
+#          - key: ""
+#            path: ""
+#            mode: 0777
+#    - name: ""
+#      secret:
+#        secretName: ""
+#        optional: bool
+#        defaultMode: 0777
+#        items:
+#          - key: ""
+#            path: ""
+#            mode: 0777
+
+  containers:
+    - name: nginx
+      image: nginx
+      imagePullPolicy: Always
+#      command:
+#        - ""
+#      args:
+#        - ""
+      workingDir: /root
+      ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+      env:
+        containerFoo: containerBar
+#      volumeMounts:
+#        - mountPath: ""
+#          name: ""
+#          readOnly: bool
+#          subPath: ""
+#        - mountPath: ""
+#          name: ""
+#          readOnly: bool
+#          subPathExpr: ""
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 512Mi
+#      livenessProbe: # the same for readiness and startup
+#        httpGet:
+#          port: 0
+#          httpHeaders:
+#            - name: ""
+#              value: ""
+#          path: ""
+#          scheme: ""
+#          initialDelaySeconds: 0
+#          terminationGracePeriodSeconds: 0
+#          periodSeconds: 0
+#          timeoutSeconds: 0
+#          failureThreshold: 0
+#          successThreshold: 0
+#          grpc:
+#            port: 0
+#            service: ""
+#      securityContext:
+#        runAsUser: 0
+#        runAsNonRoot: bool
+#        privileged: bool

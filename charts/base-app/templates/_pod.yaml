@@ -1,51 +1,39 @@
 {{- define "base-app.pod" }}
 metadata:
   labels:
-    foo: bar
+    {{- template "base-app.common-labels" | indent 4  }}
+    {{- range $key, $val := .Values.pod.labels }}
+      {{ $key }}: {{ $val | quote }}
+    {{- end }}
   annotations:
-    foo: bar
+    {{- range $key, $val := .Values.pod.annotations }}
+      {{ $key }}: {{ $val | quote }}
+    {{- end }}
 spec:
   containers:
-    - <container template>
-  initContainers:
-    - <init container template>
+    {{- template "base-app.pod.containers" | indent 4  }}
+  {{- if .Values.pod.nodeSelector }}
   nodeSelector:
-    foo: bar
+    {{ toYaml .Values.pod.nodeSelector | indent 4 }}
+  {{- end }}
+  {{- if .Values.pod.tolerations }}
   tolerations:
-    - key: ""
-      operator: ""
-      value: ""
-      effect: ""
-  restartPolicy: ""
+    {{ toYaml .Values.pod.tolerations | indent 4 }}
+  {{- end }}
+  restartPolicy: {{ $container.restartPolicy | default "Always" }}
+  {{- if .Values.pod.hostAliases }}
   hostAliases:
-    - hostnames:
-        - ""
-      ip: ""
-  serviceAccountName: ""
-  automountServiceAccountToken: bool
+    {{ toYaml .Values.pod.hostAliases | indent 4 }}
+  {{- end }}
+  {{- if .Values.pod.serviceAccount }}
+  serviceAccountName: {{- .Values.pod.serviceAccount }}
+  {{- end }}
+  {{- if .Values.pod.imagePullSecrets }}
   imagePullSecrets:
-    - name: ""
+    {{ toYaml .Values.pod.imagePullSecrets | indent 4 }}
+  {{- end }}
+  {{- if .Values.pod.volumes }}
   volumes:
-    - name: ""
-      persistentVolumeClaim:
-        claimName: ""
-        readOnly: bool
-    - name: ""
-      configMap:
-        name: ""
-        optional: bool
-        defaultMode: 0777
-        items:
-          - key: ""
-            path: ""
-            mode: 0777
-    - name: ""
-      secret:
-        secretName: ""
-        optional: bool
-        defaultMode: 0777
-        items:
-          - key: ""
-            path: ""
-            mode: 0777
+    {{ toYaml .Values.pod.volumes | indent 4 }}
+  {{- end }}
 {{- end }}

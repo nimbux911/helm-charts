@@ -4,20 +4,25 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-  {{- template "mychart.labels" | indent 4  }}
+    {{- template "base-app.common-labels" | indent 4  }}
+    {{- range $key, $val := .Values.deployment.labels }}
+      {{ $key }}: {{ $val | quote }}
+    {{- end }}
   annotations:
-    foo: bar
+    {{- range $key, $val := .Values.deployment.annotations }}
+      {{ $key }}: {{ $val | quote }}
+    {{- end }}
 spec:
   selector:
     matchLabels:
-      foo: bar
+      app: {{ .Release.Name }}
   replicas: 0
   strategy:
-    type: Recreate/RollingUpdate
+    type: {{ .Values.deployment.strategy.type | default "RollingUpdate" | quote }}
     rollingUpdate:
-      maxSurge: 0/""
-      maxUnavailable: 0/""
-  revisionHistoryLimit: 0
+      maxSurge: {{ .Values.deployment.strategy.rollingUpdate.maxSurge | default "25%" | quote }}
+      maxUnavailable: {{ .Values.deployment.strategy.rollingUpdate.maxUnavailable | default "25%" | quote }}
+  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit | default 10 }}
   template:
-    <pod template>
+    {{- template "base-app.pod" | indent 4  }}
 
