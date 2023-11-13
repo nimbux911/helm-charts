@@ -4,19 +4,21 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- template "base-app.common-labels" | indent 4  }}
-    {{- range $key, $val := .Values.deployment.labels }}
-      {{ $key }}: {{ $val | quote }}
-    {{- end }}
+    {{- include "base-app.common-labels" . | indent 4 }}
+  {{- range $key, $val := .Values.deployment.labels }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- if .Values.deployment.annotations }}
   annotations:
-    {{- range $key, $val := .Values.deployment.annotations }}
-      {{ $key }}: {{ $val | quote }}
-    {{- end }}
+  {{- range $key, $val := .Values.deployment.annotations }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
 spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
-  replicas: 0
+  replicas: {{ .Values.deployment.replicas | default 1 }}
   strategy:
     type: {{ .Values.deployment.strategy.type | default "RollingUpdate" | quote }}
     rollingUpdate:
@@ -24,5 +26,5 @@ spec:
       maxUnavailable: {{ .Values.deployment.strategy.rollingUpdate.maxUnavailable | default "25%" | quote }}
   revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit | default 10 }}
   template:
-    {{- template "base-app.pod" | indent 4  }}
+    {{- include "base-app.pod" . | indent 4 }}
 

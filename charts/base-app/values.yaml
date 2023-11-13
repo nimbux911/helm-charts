@@ -12,6 +12,7 @@ deployment:
       maxSurge: 26%
       maxUnavailable: 26%
   revisionHistoryLimit: 11
+  replicas: 2
 
 pod:
   labels:
@@ -21,35 +22,36 @@ pod:
     podAnnFoo: podAnnFoo
     podAnnFoo2: podAnnFoo2
   
-#  nodeSelector:
-#    selectorFoo: selectorBar
+  nodeSelector:
+    selectorFoo: selectorBar
 #  tolerations:
 #    - key: ""
 #      operator: ""
 #      value: ""
 #      effect: ""
 
-#  restartPolicy: Always
-#  hostAliases:
-#    - hostnames:
-#      - ""
-#    ip: ""
+  restartPolicy: Never
+  hostAliases:
+    - hostnames:
+        - name1.com
+        - name2.com
+      ip: "8.8.8.8"
 
-#  serviceAccount: ""
+  serviceAccount: amazingServiceAccount
 
-#  imagePullSecrets:
-#    - name: ""
+  imagePullSecrets:
+    - name: dockerhub.com
   
-#  volumes:
-#    - name: ""
-#      persistentVolumeClaim:
-#        claimName: ""
-#        readOnly: bool
-#    - name: ""
-#      configMap:
-#        name: ""
-#        optional: bool
-#        defaultMode: 0777
+  volumes:
+    - name: "volumen1"
+      persistentVolumeClaim:
+        claimName: "pvcname"
+        readOnly: true
+    - name: "volumen2"
+      configMap:
+        name: amazingCm
+        optional: false
+        defaultMode: 0777
 #        items:
 #          - key: ""
 #            path: ""
@@ -65,6 +67,59 @@ pod:
 #            mode: 0777
 
   containers:
+    - name: nginx2
+      image: nginx
+      imagePullPolicy: Always
+      command:
+        - command
+        - uno
+      args:
+        - args
+        - dos
+      workingDir: /root2
+      ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+      env:
+        containerFoo: containerBar2
+      volumeMounts:
+        - mountPath: "/miVolumen"
+          name: "volumen1"
+          readOnly: true
+          subPath: "/sub/"
+        - mountPath: "/mivolumen2"
+          name: "volumen2"
+          readOnly: false
+#          subPathExpr: ""
+      resources:
+        requests:
+          cpu: 150m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 512Mi
+      livenessProbe: # the same for readiness and startup
+        httpGet:
+          port: http
+#          httpHeaders:
+#            - name: ""
+#              value: ""
+          path: /to/path2
+          scheme: http
+          initialDelaySeconds: 10
+#          terminationGracePeriodSeconds: 0
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+          successThreshold: 5
+#          grpc:
+#            port: 0
+#            service: ""
+#      securityContext:
+#        runAsUser: 0
+#        runAsNonRoot: bool
+#        privileged: bool
     - name: nginx
       image: nginx
       imagePullPolicy: Always
@@ -95,20 +150,20 @@ pod:
         limits:
           cpu: 250m
           memory: 512Mi
-#      livenessProbe: # the same for readiness and startup
-#        httpGet:
-#          port: 0
+      readinessProbe: # the same for readiness and startup
+        httpGet:
+          port: http
 #          httpHeaders:
 #            - name: ""
 #              value: ""
-#          path: ""
-#          scheme: ""
-#          initialDelaySeconds: 0
+          path: /to/path
+          scheme: http
+          initialDelaySeconds: 10
 #          terminationGracePeriodSeconds: 0
-#          periodSeconds: 0
-#          timeoutSeconds: 0
-#          failureThreshold: 0
-#          successThreshold: 0
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+          successThreshold: 5
 #          grpc:
 #            port: 0
 #            service: ""

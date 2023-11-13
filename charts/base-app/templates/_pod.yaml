@@ -1,39 +1,41 @@
 {{- define "base-app.pod" }}
 metadata:
   labels:
-    {{- template "base-app.common-labels" | indent 4  }}
-    {{- range $key, $val := .Values.pod.labels }}
-      {{ $key }}: {{ $val | quote }}
-    {{- end }}
+    {{- include "base-app.common-labels" . | indent 4 }}
+  {{- range $key, $val := .Values.pod.labels }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- if .Values.pod.annotations }}
   annotations:
-    {{- range $key, $val := .Values.pod.annotations }}
-      {{ $key }}: {{ $val | quote }}
-    {{- end }}
+  {{- range $key, $val := .Values.pod.annotations }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
 spec:
   containers:
-    {{- template "base-app.pod.containers" | indent 4  }}
+    {{- include "base-app.pod.containers" . | indent 4 }}
   {{- if .Values.pod.nodeSelector }}
   nodeSelector:
-    {{ toYaml .Values.pod.nodeSelector | indent 4 }}
+{{ toYaml .Values.pod.nodeSelector | indent 4 }}
   {{- end }}
   {{- if .Values.pod.tolerations }}
   tolerations:
-    {{ toYaml .Values.pod.tolerations | indent 4 }}
+{{ toYaml .Values.pod.tolerations | indent 4 }}
   {{- end }}
-  restartPolicy: {{ $container.restartPolicy | default "Always" }}
+  restartPolicy: {{ .Values.pod.restartPolicy | default "Always" }}
   {{- if .Values.pod.hostAliases }}
   hostAliases:
-    {{ toYaml .Values.pod.hostAliases | indent 4 }}
+{{ toYaml .Values.pod.hostAliases | indent 4 }}
   {{- end }}
   {{- if .Values.pod.serviceAccount }}
-  serviceAccountName: {{- .Values.pod.serviceAccount }}
+  serviceAccountName: {{ .Values.pod.serviceAccount }}
   {{- end }}
   {{- if .Values.pod.imagePullSecrets }}
   imagePullSecrets:
-    {{ toYaml .Values.pod.imagePullSecrets | indent 4 }}
+{{ toYaml .Values.pod.imagePullSecrets | indent 4 }}
   {{- end }}
   {{- if .Values.pod.volumes }}
   volumes:
-    {{ toYaml .Values.pod.volumes | indent 4 }}
+{{ toYaml .Values.pod.volumes | indent 4 }}
   {{- end }}
 {{- end }}
