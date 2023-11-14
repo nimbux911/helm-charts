@@ -1,0 +1,66 @@
+{{- if .Values.hpa }}
+apiVersion: v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "base-app.common-labels" . | indent 4 }}
+  {{- if .Values.hpa.labels }}
+  {{- range $key, $val := .Values.hpa.labels }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.hpa.annotations }}
+  annotations:
+  {{- range $key, $val := .Values.hpa.annotations }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+spec:
+  minReplicas: {{ .Values.hpa.min }}
+  maxReplicas: {{ .Values.hpa.max }}
+  {{- if .Values.hpa.behavior }}
+  behavior:
+    {{- if .Values.hpa.behavior.scaleDown }}
+    scaleDown: 
+      {{- range $policy := .Values.hpa.behavior.scaleDown.policies }}
+      policies:
+        - type: {{ $policy.type }}
+          value: {{ $policy.value }}
+          periodSeconds: {{ $policy.periodSeconds }}
+      {{- end }}
+      {{- if .Values.hpa.behavior.scaleDown.selectPolicy }}
+      selectPolicy: {{ .Values.hpa.behavior.scaleDown.selectPolicy }}
+      {{- end }}
+      {{- if .Values.hpa.behavior.scaleDown.stabilizationWindowSeconds }}
+      stabilizationWindowSeconds: {{ .Values.hpa.behavior.scaleDown.stabilizationWindowSeconds }}
+      {{- end }}
+    {{- end }}
+    {{- if .Values.hpa.behavior.scaleUp }}
+    scaleUp: 
+      {{- range $policy := .Values.hpa.behavior.scaleUp.policies }}
+      policies:
+        - type: {{ $policy.type }}
+          value: {{ $policy.value }}
+          periodSeconds: {{ $policy.periodSeconds }}
+      {{- end }}
+      {{- if .Values.hpa.behavior.scaleUp.selectPolicy }}
+      selectPolicy: {{ .Values.hpa.behavior.scaleUp.selectPolicy }}
+      {{- end }}
+      {{- if .Values.hpa.behavior.scaleUp.stabilizationWindowSeconds }}
+      stabilizationWindowSeconds: {{ .Values.hpa.behavior.scaleUp.stabilizationWindowSeconds }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  scaleTargetRef: 
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Release.Name }}
+  {{- if .Values.hpa.metrics }}
+  {{- range $metric := .Values.hpa.metrics }}
+  metrics:
+    - {{ $metric }}
+  {{- end }}
+  {{- end }}
+{{- end }}

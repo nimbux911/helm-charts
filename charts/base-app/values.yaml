@@ -156,3 +156,80 @@ ingress:
 #      - example.com
 #    secretName: secret-name
 
+hpa:
+#  labels:
+#    foo: bar
+#  annotations:
+#    foo: bar
+  min: 1
+  max: 5
+#  behavior:
+#    scaleDown:
+#      policies:
+#        - type: ""
+#          value: ""
+#          periodSeconds: 0
+#      selectPolicy: ""
+#      stabilizationWindowSeconds: 0
+#    scaleUp:
+#      policies:
+#        - type: ""
+#          value: ""
+#          periodSeconds: 0
+#      selectPolicy: ""
+#      stabilizationWindowSeconds: 0
+#  metrics:
+#    - type: ContainerResource
+#      containerResource:
+#        container: ""
+#        name: ""
+#        target: 
+#          averageUtilization: 0
+#          averageValue: ""
+#          type: ""
+#          value: ""
+#    - type: External
+#      external:
+#        metric:
+#          name: ""
+#          selector:
+#            foo: bar
+#        target: 
+#          averageUtilization: 0
+#          averageValue: ""
+#          type: ""
+#          value: ""
+#    - type: Object
+#      object:
+#        describedObject: 
+#          apiVersion: ""
+#          kind: ""
+#          name: ""
+#        metric:
+#          name: ""
+#          selector:
+#            foo: bar
+#        target: 
+#          averageUtilization: 0
+#          averageValue: ""
+#          type: ""
+#          value: ""
+#    - type: Pods
+#      pods:
+#        metric:
+#          name: ""
+#          selector:
+#            foo: bar
+#        target: 
+#          averageUtilization: 0
+#          averageValue: ""
+#          type: ""
+#          value: ""
+#    - type: Resource
+#      resource:
+#        name: ""
+#        target: 
+#          averageUtilization: 0
+#          averageValue: ""
+#          type: ""
+#          value: ""
