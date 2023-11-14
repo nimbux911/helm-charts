@@ -1,0 +1,35 @@
+{{- if .Values.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "base-app.common-labels" . | indent 4 }}
+  {{- if .Values.service.labels }}
+  {{- range $key, $val := .Values.service.labels }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.service.annotations }}
+  annotations:
+  {{- range $key, $val := .Values.service.annotations }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+spec:
+  ports:
+  {{- range $port := .Values.service.ports }}
+    - name: {{ $port.name }}
+      {{- if eq $.Values.service.type "NodePort" }}
+      nodePort: {{ $port.nodePort }}
+      {{- end }}
+      port: {{ $port.port }}
+      protocol: {{ $port.protocol | default "TCP" }}
+      targetPort: {{ $port.targetPort }}
+  {{- end }}
+  selector:
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  type: {{ .Values.service.type }}
+{{- end }}

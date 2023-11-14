@@ -75,10 +75,10 @@ pod:
 #      args:
 #        - ""
 #      workingDir: /root
-#      ports:
-#        - containerPort: 80
-#          name: http
-#          protocol: TCP
+      ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
 #      env:
 #        containerFoo: containerBar
 #      volumeMounts:
@@ -118,3 +118,19 @@ pod:
 #        runAsUser: 0
 #        runAsNonRoot: bool
 #        privileged: bool
+
+service:
+  type: ClusterIP 
+#  type: NodePort
+#  labels:
+#    foo: bar
+#  annotations:
+#    foo: bar
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+#    - name: https
+#      port: 443
+#      targetPort: https
+#      nodePort: 35012
