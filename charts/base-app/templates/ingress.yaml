@@ -1,0 +1,60 @@
+{{- if .Values.ingress }}
+apiVersion: v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+  {{- include "base-app.common-labels" . | indent 4 }}
+  {{- if .Values.ingress.labels }}
+  {{- range $key, $val := .Values.ingress.labels }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.ingress.annotations }}
+  annotations:
+  {{- range $key, $val := .Values.ingress.annotations }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.defaultBackend }}
+  defaultBackend: 
+    service:
+      name: {{ .Values.ingress.defaultBackend.name }}
+      port: {{ .Values.ingress.defaultBackend.port }}
+  {{- end }}
+  ingressClassName: {{ .Values.ingress.className | default "nginx" }}
+  rules:
+    {{- range $rule := .Values.ingress.rules }}
+    - http:
+        paths: 
+          - path: {{ $rule.path | default "/" }}
+            pathType: {{ $rule.pathType | default "Prefix" }}
+            backend:
+              service:
+                name: {{ $.Release.Name }}
+                port: 
+                  {{- if $rule.servicePortName }}
+                  name: {{ $rule.servicePortName }}
+                  {{- end }}
+                  {{- if $rule.servicePort }}
+                  port: {{ $rule.servicePort }}
+                  {{- end }}
+      {{- if $rule.host }}
+      host: {{ $rule.host }}
+      {{- end }}
+    {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    {{- if .Values.ingress.tls.hosts }}
+    {{- range $host := .Values.ingress.tls.hosts }}
+    hosts:
+      - {{ $host }}
+    {{- end }}
+    {{- end }}
+    {{- if .Values.ingress.tls.secretName }}
+    secretName: {{ .Values.ingress.tls.secretName }}
+    {{- end }}
+  {{- end }}
+{{- end }}

@@ -134,3 +134,25 @@ service:
 #      port: 443
 #      targetPort: https
 #      nodePort: 35012
+
+ingress:
+#  labels:
+#    foo: bar
+#  annotations:
+#    foo: bar
+#  defaultBackend:
+#    name: ""
+#    port: 0
+#  className: nginx
+  rules:
+    - host: "example.com"
+      servicePortName: http
+#    - path: "/test"
+#      pathType: "Exact"
+#      servicePortName: http
+#      servicePort: 8080
+#  tls:
+#    hosts:
+#      - example.com
+#    secretName: secret-name
+
