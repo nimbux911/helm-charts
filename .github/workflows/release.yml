@@ -32,8 +32,8 @@ jobs:
           CR_OWNER: "${{ github.repository_owner }}"
 #          CR_GIT_REPO: "${{ github.repository }}"
           CR_GIT_REPO: helm-charts
-#          CR_PACKAGE_PATH: "./charts/${{ github.event.inputs.chart_name }}"
-          CR_PACKAGE_PATH: ".${{ github.event.inputs.chart_name }}"
+          CR_PACKAGE_PATH: "./charts/${{ github.event.inputs.chart_name }}"
+#          CR_PACKAGE_PATH: ".${{ github.event.inputs.chart_name }}"
           CR_SKIP_EXISTING: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         uses: helm/chart-releaser-action@v1.5.0
