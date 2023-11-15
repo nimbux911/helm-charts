@@ -1,2 +1,2 @@
 # Nimbux911 helm-charts
-- base-app
+- [base-app](./charts/base-app/README.md)
