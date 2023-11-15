@@ -42,11 +42,11 @@ pod:
 #    - name: dockerhub.com
   
 #  volumes:
-#    - name: "volumen1"
+#    - name: "volume1"
 #      persistentVolumeClaim:
 #        claimName: "pvcname"
 #        readOnly: true
-#    - name: "volumen2"
+#    - name: "volume2"
 #      configMap:
 #        name: amazingCm
 #        optional: false
@@ -55,9 +55,9 @@ pod:
 #          - key: ""
 #            path: ""
 #            mode: 0777
-#    - name: ""
+#    - name: volume3
 #      secret:
-#        secretName: ""
+#        secretName: amazingSecret
 #        optional: bool
 #        defaultMode: 0777
 #        items:
@@ -79,7 +79,13 @@ pod:
           name: http
           protocol: TCP
 #      env:
-#        containerFoo: containerBar
+#        - name: containerFoo
+#          value: containerBar
+#        - name: cmVar
+#          valueFrom: 
+#            configMapKeyRef:
+#              name: cm1
+#              key: key2
 #      volumeMounts:
 #        - mountPath: ""
 #          name: ""
@@ -246,44 +252,44 @@ pdb:
 #  unhealthyPodEvictionPolicy: AlwaysAllow
 
 #configmaps:
-#  - name: test
+#  - name: cm1
 #    labels:
 #      foo: bar
 #    annotations:
 #      foo: bar
 #    immutable: false 
 #    data:
-#      clave1: |
-#        mi multin
-#        line
+#      key1: |
+#        my awesome
+#        multiline
 #        string
-#      clave2: sarasa
+#      key2: my-awesome-config
 #  - name: binaryTest
 #    binaryData:
-#      clave1: |
-#        mi multin
-#        line
+#      key3: |
+#        another
+#        multiline
 #        string
-#      clave2: sarasa
+#      key4: another-awesome-config
 
 #secrets:
-#  - name: secret
+#  - name: secret1
 #    labels:
 #      foo: bar
 #    annotations:
 #      foo: bar
 #    immutable: false 
 #    data:
-#      clave1: |
-#        mi multin
-#        line
+#      key1: |
+#        my awesome
+#        multiline
 #        string
-#      clave2: sarasa
+#      key2: my-super-secret-value
 #  - name: stringData
 #    stringData:
-#      clave1: |
-#        mi multin
-#        line
+#      key3: |
+#        another
+#        multiline
 #        string
-#      clave2: sarasa
+#      key4: another-super-secret-value
 #    type: "kubernetes.io/dockerconfigjson"
