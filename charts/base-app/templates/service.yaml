@@ -1,5 +1,5 @@
 {{- if .Values.service.enabled }}
-apiVersion: v1
+apiVersion: core/v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}
