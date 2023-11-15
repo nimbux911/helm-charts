@@ -1,0 +1,32 @@
+{{- if .Values.pdb }}
+apiVersion: v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "base-app.common-labels" . | indent 4 }}
+  {{- if .Values.pdb.labels }}
+  {{- range $key, $val := .Values.pdb.labels }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.pdb.annotations }}
+  annotations:
+  {{- range $key, $val := .Values.pdb.annotations }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+spec:
+  {{- if .Values.pdb.maxUnavailable }}
+  maxUnavailable: {{ .Values.pdb.maxUnavailable }}
+  {{- end }}
+  {{- if .Values.pdb.minAvailable }}
+  minAvailable: {{ .Values.pdb.minAvailable }}
+  {{- end }}
+  unhealthyPodEvictionPolicy: {{ .Values.pdb.unhealthyPodEvictionPolicy | default "IfHealthyBudget" }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Chart.Name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

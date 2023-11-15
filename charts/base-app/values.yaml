@@ -233,3 +233,54 @@ hpa:
 #          averageValue: ""
 #          type: ""
 #          value: ""
+pdb:
+#  labels:
+#    foo: bar
+#  annotations:
+#    foo: bar
+  minAvailable: 50%
+#  maxUnavailable: 0
+#  unhealthyPodEvictionPolicy: AlwaysAllow
+
+#configmaps:
+#  - name: test
+#    labels:
+#      foo: bar
+#    annotations:
+#      foo: bar
+#    immutable: false 
+#    data:
+#      clave1: |
+#        mi multin
+#        line
+#        string
+#      clave2: sarasa
+#  - name: binaryTest
+#    binaryData:
+#      clave1: |
+#        mi multin
+#        line
+#        string
+#      clave2: sarasa
+
+#secrets:
+#  - name: secret
+#    labels:
+#      foo: bar
+#    annotations:
+#      foo: bar
+#    immutable: false 
+#    data:
+#      clave1: |
+#        mi multin
+#        line
+#        string
+#      clave2: sarasa
+#  - name: stringData
+#    stringData:
+#      clave1: |
+#        mi multin
+#        line
+#        string
+#      clave2: sarasa
+#    type: "kubernetes.io/dockerconfigjson"

@@ -1,0 +1,41 @@
+{{- if .Values.configmaps }}
+{{- range $cm := .Values.configmaps }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $cm.name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "base-app.common-labels" $ | indent 4 }}
+  {{- if $cm.labels }}
+  {{- range $key, $val := $cm.labels }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if $cm.annotations }}
+  annotations:
+  {{- range $key, $val := $cm.annotations }}
+    {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+{{- if $cm.immutable }}
+immutable: {{ $cm.immutable }}
+{{- end }}
+{{- if $cm.binaryData }}
+binaryData:
+{{- range $key, $val := $cm.binaryData }}
+  {{ $key }}: |
+{{ $val | indent 4}}
+{{- end }}
+{{- end }}
+{{- if $cm.data }}
+data:
+{{- range $key, $val := $cm.data }}
+  {{ $key }}: |
+{{ $val | indent 4}}
+{{- end }}
+{{- end }}
+
+{{- end }}
+{{- end }}
