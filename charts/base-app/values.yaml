@@ -12,7 +12,7 @@ deployment:
 #      maxSurge: 26%
 #      maxUnavailable: 26%
 #  revisionHistoryLimit: 11
-  replicas: 2
+  replicas: 1
 
 pod:
 #  labels:
@@ -20,8 +20,7 @@ pod:
 #    podFoo2: podFoo2
 #  annotations:
 #    podAnnFoo: podAnnFoo
-#    podAnnFoo2: podAnnFoo2
-  
+#    podAnnFoo2: podAnnFoo2  
 #  nodeSelector:
 #    selectorFoo: selectorBar
 #  tolerations:

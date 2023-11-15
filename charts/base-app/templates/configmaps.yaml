@@ -1,7 +1,7 @@
 {{- if .Values.configmaps }}
 {{- range $cm := .Values.configmaps }}
 ---
-apiVersion: core/v1
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ $cm.name }}
