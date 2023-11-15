@@ -120,6 +120,7 @@ pod:
 #        privileged: bool
 
 service:
+  enabled: true
   type: ClusterIP 
 #  type: NodePort
 #  labels:
@@ -136,6 +137,7 @@ service:
 #      nodePort: 35012
 
 ingress:
+  enabled: false
 #  labels:
 #    foo: bar
 #  annotations:
@@ -144,9 +146,9 @@ ingress:
 #    name: ""
 #    port: 0
 #  className: nginx
-  rules:
-    - host: "example.com"
-      servicePortName: http
+#  rules:
+#    - host: "example.com"
+#      servicePortName: http
 #    - path: "/test"
 #      pathType: "Exact"
 #      servicePortName: http
@@ -157,12 +159,13 @@ ingress:
 #    secretName: secret-name
 
 hpa:
+  enabled: false
 #  labels:
 #    foo: bar
 #  annotations:
 #    foo: bar
-  min: 1
-  max: 5
+#  min: 1
+#  max: 5
 #  behavior:
 #    scaleDown:
 #      policies:
@@ -234,11 +237,12 @@ hpa:
 #          type: ""
 #          value: ""
 pdb:
+  enabled: false
 #  labels:
 #    foo: bar
 #  annotations:
 #    foo: bar
-  minAvailable: 50%
+#  minAvailable: 50%
 #  maxUnavailable: 0
 #  unhealthyPodEvictionPolicy: AlwaysAllow
 
