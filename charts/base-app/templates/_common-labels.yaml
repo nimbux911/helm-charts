@@ -1,9 +1,0 @@
-{{/* Generate common labels */}}
-{{- define "base-app.common-labels" }}
-helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-app.kubernetes.io/name: {{ .Chart.Name }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-app.kubernetes.io/version: {{ .Chart.AppVersion }}
-app: {{ .Release.Name }}
-{{- end  }}
