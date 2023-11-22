@@ -18,12 +18,14 @@ app: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Expand the name of the chart.
+Generate resources name.
 */}}
 {{- define "base-app.resourceName" }}
 {{- if .Values.global }}
-{{- if .Values.global.resourceNameOverride }}
-{{- .Values.global.resourceNameOverride }}
+{{- if .Values.global.fullNameOverride }}
+{{- .Values.global.fullNameOverride }}
+{{- else if .Values.global.nameOverride }}
+{{ printf "%s-%s" .Release.Name .Values.global.nameOverride }}
 {{- else }}
 {{- .Release.Name }}
 {{- end }}
