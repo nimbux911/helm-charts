@@ -33,4 +33,20 @@ entries:
     urls:
     - https://github.com/nimbux911/helm-charts/releases/download/base-app-0.0.1-test/base-app-0.0.1-test.tgz
     version: 0.0.1-test
-generated: "2023-11-22T11:59:19.999108695Z"
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-11-22T12:28:17.974183863Z"
+    description: base app templates
+    digest: a60b8c7466173bbca89f855aa03bb7d28cb6682d75625ea06e25f29253b5554b
+    home: https://nimbux911.github.io/helm-charts
+    maintainers:
+    - email: qemanuel16@gmail.com
+      name: qemanuel
+    name: base-app
+    sources:
+    - https://github.com/nimbux911/helm-charts/tree/main/charts/base-app
+    type: application
+    urls:
+    - https://github.com/nimbux911/helm-charts/releases/download/base-app-0.0.1-test/base-app-0.0.1-test.tgz
+    version: 0.0.1-test
+generated: "2023-11-22T12:28:17.974201937Z"
