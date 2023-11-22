@@ -2,7 +2,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "base-app.resourceName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "base-app.common-labels" . | indent 4 }}
