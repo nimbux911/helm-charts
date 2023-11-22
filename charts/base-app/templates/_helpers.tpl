@@ -25,7 +25,7 @@ Generate resources name.
 {{- if .Values.global.fullNameOverride }}
 {{- .Values.global.fullNameOverride }}
 {{- else if .Values.global.nameOverride }}
-{{ printf "%s-%s" .Release.Name .Values.global.nameOverride }}
+{{- printf "%s-%s" .Release.Name .Values.global.nameOverride }}
 {{- else }}
 {{- .Release.Name }}
 {{- end }}

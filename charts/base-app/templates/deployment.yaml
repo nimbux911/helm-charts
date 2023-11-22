@@ -4,7 +4,7 @@ metadata:
   name: {{ include "base-app.resourceName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "base-app.common-labels" . | indent 4 }}
+  {{- include "base-app.common-labels" . | indent 4 }}
   {{- if .Values.deployment.labels }}
   {{- range $key, $val := .Values.deployment.labels }}
     {{ $key }}: {{ $val | quote }}
