@@ -1,3 +1,8 @@
+global:
+#  labels:
+#    foo: bar
+#  resourceNameOverride: ""
+
 
 deployment:
 #  labels:
@@ -110,15 +115,15 @@ pod:
 #              value: ""
 #          path: /to/path
 #          scheme: http
-#          initialDelaySeconds: 10
-#          terminationGracePeriodSeconds: 0
-#          periodSeconds: 5
-#          timeoutSeconds: 5
-#          failureThreshold: 5
-#          successThreshold: 5
-#          grpc:
-#            port: 0
-#            service: ""
+#        initialDelaySeconds: 10
+#        terminationGracePeriodSeconds: 0
+#        periodSeconds: 5
+#        timeoutSeconds: 5
+#        failureThreshold: 5
+#        successThreshold: 5
+#        grpc:
+#          port: 0
+#          service: ""
 #      securityContext:
 #        runAsUser: 0
 #        runAsNonRoot: bool
