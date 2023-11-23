@@ -4,10 +4,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ $cm.name }}
+  name: {{ printf "%s-%s" (include "base-app.resourceName" $) $cm.name }}
   namespace: {{ $.Release.Namespace }}
   labels:
-    {{- include "base-app.common-labels" $ | indent 4 }}
+  {{- include "base-app.common-labels" $ | indent 4 }}
   {{- if $cm.labels }}
   {{- range $key, $val := $cm.labels }}
     {{ $key }}: {{ $val | quote }}

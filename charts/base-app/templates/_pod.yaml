@@ -1,7 +1,7 @@
 {{- define "base-app.pod" }}
 metadata:
   labels:
-    {{- include "base-app.common-labels" . | indent 4 }}
+  {{- include "base-app.common-labels" . | indent 4 }}
   {{- if .Values.pod }}
   {{- if .Values.pod.labels }}
   {{- range $key, $val := .Values.pod.labels }}

@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "base-app.resourceName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
   {{- include "base-app.common-labels" . | indent 4 }}
@@ -33,7 +33,7 @@ spec:
             pathType: {{ $rule.pathType | default "Prefix" }}
             backend:
               service:
-                name: {{ $.Release.Name }}
+                name: {{ include "base-app.resourceName" $ }}
                 port: 
                   {{- if $rule.servicePortName }}
                   name: {{ $rule.servicePortName }}

@@ -2,10 +2,10 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "base-app.resourceName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "base-app.common-labels" . | indent 4 }}
+  {{- include "base-app.common-labels" . | indent 4 }}
   {{- if .Values.pdb.labels }}
   {{- range $key, $val := .Values.pdb.labels }}
     {{ $key }}: {{ $val | quote }}
@@ -27,6 +27,6 @@ spec:
   unhealthyPodEvictionPolicy: {{ .Values.pdb.unhealthyPodEvictionPolicy | default "IfHealthyBudget" }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Chart.Name }}
+      app.kubernetes.io/name: {{ include "base-app.resourceName" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
