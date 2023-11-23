@@ -56,7 +56,7 @@ spec:
   scaleTargetRef: 
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Release.Name }}
+    name: {{ include "base-app.resourceName" . }}
   {{- if .Values.hpa.metrics }}
   {{- range $metric := .Values.hpa.metrics }}
   metrics:

@@ -1,8 +1,8 @@
-global:
-#  labels:
-#    foo: bar
-#  nameOverride: ""
-#  fullNameOverride: ""
+# these apply to all resources
+# labels:
+#   foo: bar
+# nameOverride: ""
+# fullNameOverride: ""
 
 
 deployment:

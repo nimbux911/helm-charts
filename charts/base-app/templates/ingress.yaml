@@ -33,7 +33,7 @@ spec:
             pathType: {{ $rule.pathType | default "Prefix" }}
             backend:
               service:
-                name: {{ $.Release.Name }}
+                name: {{ include "base-app.resourceName" $ }}
                 port: 
                   {{- if $rule.servicePortName }}
                   name: {{ $rule.servicePortName }}

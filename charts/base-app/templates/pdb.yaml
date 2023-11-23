@@ -27,6 +27,6 @@ spec:
   unhealthyPodEvictionPolicy: {{ .Values.pdb.unhealthyPodEvictionPolicy | default "IfHealthyBudget" }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Chart.Name }}
+      app.kubernetes.io/name: {{ include "base-app.resourceName" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

@@ -19,7 +19,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Chart.Name }}
+      app.kubernetes.io/name: {{ include "base-app.resourceName" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   replicas: {{ .Values.deployment.replicas | default 1 }}
   {{- if .Values.deployment.strategy }}

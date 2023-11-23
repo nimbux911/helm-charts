@@ -29,7 +29,7 @@ spec:
       targetPort: {{ $port.targetPort }}
   {{- end }}
   selector:
-    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/name: {{ include "base-app.resourceName" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
   type: {{ .Values.service.type }}
 {{- end }}
