@@ -42,7 +42,7 @@ spec:
                   port: {{ $rule.servicePort }}
                   {{- end }}
       {{- if $rule.host }}
-      host: {{ $rule.host }}
+      host: {{ $rule.host | quote }}
       {{- end }}
     {{- end }}
   {{- if .Values.ingress.tls }}
