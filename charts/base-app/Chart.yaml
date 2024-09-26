@@ -1,13 +1,13 @@
 apiVersion: v2
 name: base-app
 description: base app templates
-version: 0.1.0
+version: 0.1.1
 appVersion: 1.0.0
 #kubeVersion: A SemVer range of compatible Kubernetes versions (optional)
 type: application
 home: https://nimbux911.github.io/helm-charts
 sources:
-  - https://github.com/nimbux911/helm-charts/tree/main/charts/base-app
+  - https://github.com/nimbux911/helm-charts/tree/feature/handle-dictionary-values-secret/charts/base-app
 maintainers:
   - name: qemanuel
     email: qemanuel16@gmail.com
